@@ -6,12 +6,15 @@ public class GroundTile : MonoBehaviour
 
     public GameObject obstaclePrefab; // allows us to use our obstacle prefab on our tile
 
+    public GameObject coinPrefab; // the coin 
+
     // Start is called before the first frame update
     void Start()
     {
         groundSpawner = GameObject.FindObjectOfType<GroundSpawner>(); // accessing our GroundSpawner script
 
         SpawnObstacle();
+        SpawnCoins();
     }
 
     // will trigger on an collision
@@ -37,5 +40,34 @@ public class GroundTile : MonoBehaviour
         
     }
 
-    
+    void SpawnCoins()
+    {
+        int coinsToSpawn = 1;
+
+        for (int i = 0; i < coinsToSpawn; i++)
+        {
+            GameObject temp = Instantiate(coinPrefab, transform); // spawn the coins
+            temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>());// random point spawn call
+        }
+    }   
+
+    // Using the bounds of the ground tile, decide where the coin is restricted to be spawned
+    // Choose a random position in these bounds
+    Vector3 GetRandomPointInCollider(Collider collider)
+    {
+        Vector3 point = new Vector3(                
+                Random.Range(collider.bounds.min.x, collider.bounds.max.x),
+                Random.Range(collider.bounds.min.y, collider.bounds.max.y),
+                Random.Range(collider.bounds.min.z, collider.bounds.max.z)
+            );
+
+        // makes sure the chosen point is actually ON the collider
+        if (point != collider.ClosestPoint(point))
+        {
+            point = GetRandomPointInCollider(collider);
+        }
+
+        point.y = 1; // all spawn on the same height
+        return point;
+    }
 }

@@ -7,7 +7,7 @@ public class Player_Movement : MonoBehaviour
     public Rigidbody rb;
 
     float horizontalInput;
-    public float horizontalMultiplier = 1.2f;
+    public float horizontalMultiplier = 1.6f;
 
     bool alive = true;
 
