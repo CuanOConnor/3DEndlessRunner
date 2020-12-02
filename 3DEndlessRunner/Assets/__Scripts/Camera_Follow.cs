@@ -2,7 +2,7 @@
 
 public class Camera_Follow : MonoBehaviour
 {
-    public Transform player;
+    [SerializeField] Transform player;
     Vector3 offset;
 
 

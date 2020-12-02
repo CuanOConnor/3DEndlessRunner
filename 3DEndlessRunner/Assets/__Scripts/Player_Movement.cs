@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 public class Player_Movement : MonoBehaviour
 {
     public float speed = 10;
-    public Rigidbody rb;
+    [SerializeField] Rigidbody rb;
 
     float horizontalInput;
-    public float horizontalMultiplier = 1.6f;
+    [SerializeField] float horizontalMultiplier = 1.6f;
+
+    public float speedIncreasePerPoint = 0.05f;
 
     bool alive = true;
 

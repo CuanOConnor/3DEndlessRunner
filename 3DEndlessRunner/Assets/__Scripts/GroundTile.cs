@@ -4,27 +4,23 @@ public class GroundTile : MonoBehaviour
 {
     GroundSpawner groundSpawner;
 
-    public GameObject obstaclePrefab; // allows us to use our obstacle prefab on our tile
-
-    public GameObject coinPrefab; // the coin 
+    [SerializeField] GameObject obstaclePrefab; // allows us to use our obstacle prefab on our tile
+    [SerializeField] GameObject coinPrefab; // the coin 
 
     // Start is called before the first frame update
     void Start()
     {
         groundSpawner = GameObject.FindObjectOfType<GroundSpawner>(); // accessing our GroundSpawner script
-
-        SpawnObstacle();
-        SpawnCoins();
     }
 
     // will trigger on an collision
     private void OnTriggerExit(Collider other)
     {
-        groundSpawner.SpawnTile();
+        groundSpawner.SpawnTile(true);
         Destroy(gameObject, 2); // destroy the object after the player leaves (2 seconds)
     }
 
-    void SpawnObstacle()
+    public void SpawnObstacle()
     {
         // Choose a random point to spawn the obstacle
         int obstacleSpawnIndex = Random.Range(2, 5);
@@ -34,13 +30,7 @@ public class GroundTile : MonoBehaviour
         Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void SpawnCoins()
+    public void SpawnCoins()
     {
         int coinsToSpawn = 1;
 

@@ -3,7 +3,7 @@
 public class Coin : MonoBehaviour
 {
 
-    public float turnSpeed = 90f;
+    [SerializeField] float turnSpeed = 90f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +19,9 @@ public class Coin : MonoBehaviour
         {
             return;
         }
+
         // Add to the score
+        GameManager.inst.IncrementScore();
 
         // Destroy coin object
         Destroy(gameObject);
