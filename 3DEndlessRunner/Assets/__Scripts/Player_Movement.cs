@@ -13,6 +13,8 @@ public class Player_Movement : MonoBehaviour
 
     bool alive = true;
 
+    public bool isOnTheGround = true;
+
     private void FixedUpdate()
     {
         if (!alive)
@@ -39,6 +41,27 @@ public class Player_Movement : MonoBehaviour
         {
             Die();
         }
+
+        // simple jump logic
+        if (Input.GetButtonDown("Jump") && isOnTheGround)
+        {
+            rb.AddForce(new Vector3(0, 12.5f, 0), ForceMode.Impulse);
+            isOnTheGround = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name == "GroundTile(Clone)")
+        {
+            isOnTheGround = true;
+        }
+    }
+
+    // hacky fix for an issue with ground collision
+    private void OnCollisionExit(Collision collision)
+    {
+        isOnTheGround = true;
     }
 
     public void Die()
