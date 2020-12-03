@@ -9,7 +9,7 @@ public class Player_Movement : MonoBehaviour
     float horizontalInput;
     [SerializeField] float horizontalMultiplier = 1.6f;
 
-    public float speedIncreasePerPoint = 0.05f;
+    public float speedIncreasePerPoint = 0.07f;
 
     bool alive = true;
 
