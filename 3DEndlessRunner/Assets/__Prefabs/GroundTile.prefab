@@ -280,3 +280,5 @@ MonoBehaviour:
     type: 3}
   coinPrefab: {fileID: 6357789410794904600, guid: c0cd8dafb95b28d4688cd7a4592947ac,
     type: 3}
+  enemyPrefab: {fileID: 2367494075372910879, guid: 997e12e6ecd1b7c40b851db77707101b,
+    type: 3}

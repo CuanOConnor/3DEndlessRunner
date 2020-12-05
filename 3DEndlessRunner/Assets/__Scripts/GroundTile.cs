@@ -6,6 +6,7 @@ public class GroundTile : MonoBehaviour
 
     [SerializeField] GameObject obstaclePrefab; // allows us to use our obstacle prefab on our tile
     [SerializeField] GameObject coinPrefab; // the coin 
+    [SerializeField] GameObject enemyPrefab; // enemies
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,12 @@ public class GroundTile : MonoBehaviour
             temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>());// random point spawn call
         }
     }   
+
+    public void SpawnEnemy()
+    {
+        GameObject temp = Instantiate(enemyPrefab, transform); // spawn enemy
+        temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>()); // random point call
+    }
 
     // Using the bounds of the ground tile, decide where the coin is restricted to be spawned
     // Choose a random position in these bounds

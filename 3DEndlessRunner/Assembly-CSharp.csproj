@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\__Scripts\Camera_Follow.cs" />
     <Compile Include="Assets\__Scripts\Coin.cs" />
+    <Compile Include="Assets\__Scripts\Enemy.cs" />
     <Compile Include="Assets\__Scripts\GameManager.cs" />
     <Compile Include="Assets\__Scripts\GroundSpawner.cs" />
     <Compile Include="Assets\__Scripts\GroundTile.cs" />
