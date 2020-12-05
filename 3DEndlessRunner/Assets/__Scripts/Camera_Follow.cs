@@ -2,23 +2,18 @@
 
 public class Camera_Follow : MonoBehaviour
 {
-    [SerializeField] Transform player;
-    Vector3 offset;
+    public Transform target; //player
+    private Vector3 offset;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        // maintains camera distance from the player
-        offset = transform.position - player.position;
+        offset = transform.position - target.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    // Late update adds a more smooth follow experience
+    private void LateUpdate()
     {
-        // The camera will follow the player, but also stay centered on the track
-        Vector3 targetPos = player.position + offset;
-        targetPos.x = 0;
-        transform.position = targetPos;
+        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, offset.z + target.position.z); // positioning the camera
+        transform.position = Vector3.Lerp(transform.position, newPosition, 10*Time.deltaTime); // lerp() once again for smoothness as in player script
     }
 }

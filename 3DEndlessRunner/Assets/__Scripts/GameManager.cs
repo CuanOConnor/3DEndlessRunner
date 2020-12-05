@@ -5,24 +5,20 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    int score;
-    public static GameManager inst;
+    public static bool gameOver;
+    public GameObject gameOverPanel;
 
-    [SerializeField] Text scoreText;
-    [SerializeField] Player_Movement player_Movement;
-
-    public void IncrementScore()
+    private void Start()
     {
-        score += 10;
-        scoreText.text = "SCORE: " + score;
-
-        // increase the players speed
-        player_Movement.speed += player_Movement.speedIncreasePerPoint;
+        gameOver = false;
     }
 
-    public void Awake()
+    private void Update()
     {
-        inst = this;
+        if (gameOver)
+        {
+            Time.timeScale = 0; // pause the game
+            gameOverPanel.SetActive(true); // display game over UI
+        }
     }
-
 }
