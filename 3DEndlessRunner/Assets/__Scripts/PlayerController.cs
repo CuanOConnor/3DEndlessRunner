@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce = 13f;
     [SerializeField] float gravity = -40;
 
+    public GameObject poweredUpPanel;
+
+    public bool isInvincible = false;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>(); //controller component
@@ -22,7 +26,17 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(forwardSpeed < maxSpeed)
+        if(isInvincible)
+        {
+            poweredUpPanel.SetActive(true);
+        }
+
+        if (!isInvincible)
+        {
+            Invoke("IsVulnerable", 20); // player is immune to damage from obstacles for a short duration
+        }
+
+        if (forwardSpeed < maxSpeed)
         {
             forwardSpeed += 0.11f * Time.deltaTime;// increase speed.
         }
@@ -111,10 +125,18 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // check if collision with obstacle
-        if (hit.transform.tag == "Obstacle")
+        if (hit.transform.tag == "Obstacle" && !isInvincible)
         {
             GameManager.gameOver = true;
             FindObjectOfType<AudioManager>().PlaySound("GameOver");// on death play game over sound.
+            
         }
+    }
+
+    public void IsVulnerable()
+    {
+        //Debug.Log("Yes i can die now!");
+        isInvincible = false; // no longer immune to damage
+        poweredUpPanel.SetActive(false);
     }
 }

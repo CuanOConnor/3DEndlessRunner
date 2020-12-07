@@ -71,6 +71,7 @@
     <Compile Include="Assets\__Scripts\GameManager.cs" />
     <Compile Include="Assets\__Scripts\MainMenu.cs" />
     <Compile Include="Assets\__Scripts\PlayerController.cs" />
+    <Compile Include="Assets\__Scripts\PowerUp.cs" />
     <Compile Include="Assets\__Scripts\Sounds.cs" />
     <Compile Include="Assets\__Scripts\TileManager.cs" />
     <None Include="Assets\ImportedAssets\TextMesh Pro\Shaders\TMPro.cginc" />
