@@ -7,7 +7,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject instructionsPanel;
     [SerializeField] GameObject optionsPanel;
 
-    // The below three functions simple manage our menu states
+    private AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager.PlaySound("MainTheme");
+    }
+
+    // The below three functions simply manage our menu states
     public void GoToMain()
     {
         mainPanel.SetActive(true);

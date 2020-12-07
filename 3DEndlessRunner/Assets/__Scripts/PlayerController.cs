@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
     private Vector3 direction; // player move
-    [SerializeField] float forwardSpeed = 5f;
+    [SerializeField] float forwardSpeed = 9f;
+    [SerializeField] float maxSpeed = 40f;
 
     private int desiredLane = 1;// 0: left 1:middle 2:right
-    public float laneDistance = 3; // distance between two lanes
+    private float laneDistance = 3; // distance between two lanes
 
-    [SerializeField] float jumpForce = 6f;
-    [SerializeField] float gravity = -20;
+    [SerializeField] float jumpForce = 13f;
+    [SerializeField] float gravity = -40;
 
     private void Start()
     {
@@ -20,7 +22,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        controller.Move(direction * Time.fixedDeltaTime); // move character
+        if(forwardSpeed < maxSpeed)
+        {
+            forwardSpeed += 0.11f * Time.deltaTime;// increase speed.
+        }
+
+        controller.Move(direction * Time.deltaTime); // move character
 
         direction.z = forwardSpeed; // player moves on the z axis
 
@@ -76,6 +83,23 @@ public class PlayerController : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, 80 *Time.deltaTime); //Lerp adds smoothness to the transitions between lanes.
         controller.center = controller.center;// hacky fix for a collision error (note: likely occured due to changing transform positions but not sure)
+
+        //crouch
+        if (Input.GetButton("Vertical"))
+        {
+            Vector3 scale = controller.transform.localScale;
+            scale.y = 0.1f;
+            controller.transform.localScale = scale;
+            controller.radius = 0.3f;
+        }
+        if(Input.GetButtonUp("Vertical"))
+        {
+            Vector3 scale = controller.transform.localScale;
+            scale.y = 1f;
+            controller.transform.localScale = scale;
+            controller.radius = 0.5f;
+        }
+
     }
 
     private void Jump()
@@ -90,6 +114,7 @@ public class PlayerController : MonoBehaviour
         if (hit.transform.tag == "Obstacle")
         {
             GameManager.gameOver = true;
+            FindObjectOfType<AudioManager>().PlaySound("GameOver");// on death play game over sound.
         }
     }
 }
