@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static int score = 0;
 
     public Text scoreText;
+    public Text highScore;
 
     private void Start()
     {
@@ -27,5 +28,13 @@ public class GameManager : MonoBehaviour
         }
 
         scoreText.text = "Score: " + score;
+
+        // System for storing and displaying a highscore within the game
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+
+        highScore.text = "HighScore: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 }

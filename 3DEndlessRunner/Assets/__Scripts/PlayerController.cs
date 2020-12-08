@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isInvincible)
         {
-            Invoke("IsVulnerable", 20); // player is immune to damage from obstacles for a short duration
+            Invoke("IsVulnerable", 30); // player is immune to damage from obstacles for a short duration
         }
 
         if (forwardSpeed < maxSpeed)
