@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 1.0f;
 
+    // Simply moves the enemy object forward and back on the x axis to add some difficulty
     private void Update()
     {
         Vector3 pos1 = new Vector3(-4, transform.position.y, transform.position.z);
